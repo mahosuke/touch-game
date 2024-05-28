@@ -1,5 +1,3 @@
-// game.js
-
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const nameInput = document.getElementById('nameInput');
@@ -96,7 +94,7 @@ function saveResults() {
         results: results
     };
 
-    fetch('save_results.php', {
+    fetch('/save_results', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
