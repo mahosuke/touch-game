@@ -14,14 +14,20 @@
             background-color: #000;
             color: #fff;
             font-family: Arial, sans-serif;
+            flex-direction: column;
         }
         canvas {
             border: 1px solid #fff;
         }
+        #nameInput, #startButton {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <input type="text" id="nameInput" placeholder="名前を入力してください">
+    <button id="startButton">ゲームを開始</button>
+    <canvas id="gameCanvas" width="800" height="600" style="display: none;"></canvas>
     <script src="game.js"></script>
 </body>
 </html>

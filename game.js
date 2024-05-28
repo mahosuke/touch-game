@@ -2,8 +2,11 @@
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+const nameInput = document.getElementById('nameInput');
+const startButton = document.getElementById('startButton');
 
 let gameRunning = false;
+let playerName = '';
 let shapes = [];
 let attempts = 0;
 let maxAttempts = 10;
@@ -31,12 +34,20 @@ class Shape {
 }
 
 function startGame() {
+    playerName = nameInput.value;
+    if (playerName === '') {
+        alert('名前を入力してください。');
+        return;
+    }
     gameRunning = true;
     attempts = 0;
     results = [];
     shapes = [];
     createRandomShape();
     startTime = new Date().getTime();
+    nameInput.style.display = 'none';
+    startButton.style.display = 'none';
+    canvas.style.display = 'block';
     gameLoop();
 }
 
@@ -59,6 +70,10 @@ function gameLoop() {
 function endGame() {
     gameRunning = false;
     displayResults();
+    saveResults();
+    nameInput.style.display = 'block';
+    startButton.style.display = 'block';
+    canvas.style.display = 'none';
 }
 
 function displayResults() {
@@ -66,9 +81,31 @@ function displayResults() {
     ctx.fillStyle = 'white';
     ctx.font = '20px Arial';
 
+    let totalTime = 0;
     results.forEach((result, index) => {
         ctx.fillText(`Attempt ${index + 1}: ${result.time}s ${result.hit ? 'Hit' : `Missed by ${result.distance}px at ${result.angle}°`}`, 10, 30 + index * 25);
+        totalTime += parseFloat(result.time);
     });
+
+    ctx.fillText(`Total Time: ${totalTime.toFixed(2)}s`, 10, 30 + results.length * 25 + 25);
+}
+
+function saveResults() {
+    const gameResults = {
+        name: playerName,
+        results: results
+    };
+
+    fetch('save_results.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(gameResults)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
 }
 
 canvas.addEventListener('click', (event) => {
@@ -105,3 +142,5 @@ canvas.addEventListener('click', (event) => {
         }
     }
 });
+
+startButton.addEventListener('click', startGame);
