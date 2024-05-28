@@ -68,10 +68,17 @@ function gameLoop() {
 function endGame() {
     gameRunning = false;
     displayResults();
+
+    // Delay the display switch by 5 seconds (5000 milliseconds)
+    setTimeout(() => {
+        nameInput.style.display = 'block';
+        startButton.style.display = 'block';
+        canvas.style.display = 'none';
+        // Clear the canvas after showing results
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }, 5000);
+
     saveResults();
-    nameInput.style.display = 'block';
-    startButton.style.display = 'block';
-    canvas.style.display = 'none';
 }
 
 function displayResults() {
