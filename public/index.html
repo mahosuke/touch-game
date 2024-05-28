@@ -2,32 +2,26 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タッチゲーム</title>
+    <title>Shape Game</title>
     <style>
         body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000;
-            color: #fff;
+            background-color: black;
+            color: white;
             font-family: Arial, sans-serif;
-            flex-direction: column;
         }
-        canvas {
-            border: 1px solid #fff;
-        }
-        #nameInput, #startButton {
-            margin-bottom: 20px;
+        #gameCanvas {
+            display: none;
+            border: 1px solid white;
+            background-color: black;
         }
     </style>
 </head>
 <body>
+    <h1>Shape Game</h1>
     <input type="text" id="nameInput" placeholder="名前を入力してください">
-    <button id="startButton">ゲームを開始</button>
-    <canvas id="gameCanvas" width="800" height="600" style="display: none;"></canvas>
-    <script src="game.js"></script>
+    <button id="startButton">スタート</button>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <script src="script.js"></script>
 </body>
 </html>
